@@ -4,6 +4,7 @@ import 'package:t_store/common/widgets/products/products_cards/product_card_vert
 import 'package:t_store/common/widgets/texts/section_heading.dart';
 
 import '../../../../../common/widgets/brands/brand_showcase.dart';
+import '../../../../../utils/constants/dummy_product_data.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 
@@ -20,6 +21,7 @@ class TCategoryTabs extends StatelessWidget {
           padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             children: [
+
               /// -Brands
               const TBrandShowcase(
                 images: [
@@ -39,8 +41,12 @@ class TCategoryTabs extends StatelessWidget {
               ),
 
               TGridView(
-                  itemCount: 4,
-                  itemBuilder: (_, index) => const TProductCardVertical()),
+                itemCount: dummyProductData.length,
+                itemBuilder: (_, index) =>
+                    TProductCardVertical(
+                      product: dummyProductData[index], // Pass the product data to the widget
+                    ),
+              ),
               const SizedBox(
                 height: TSizes.spaceBtwSections,
               ),

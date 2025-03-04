@@ -8,6 +8,7 @@ import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
+import '../../../../features/shop/models/product_model.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../styles/shadows.dart';
 import '../../icons/circular_icons.dart';
@@ -15,7 +16,9 @@ import '../../texts/product_title.dart';
 import 'package:get/get.dart';
 
 class TProductCardVertical extends StatelessWidget {
-  const TProductCardVertical({super.key});
+  const TProductCardVertical({super.key, required this.product});
+
+  final ProductModel product; // Accepting ProductModel as a parameter
 
   @override
   Widget build(BuildContext context) {
@@ -40,29 +43,33 @@ class TProductCardVertical extends StatelessWidget {
               child: Stack(
                 children: [
                   ///thumbnailImage
-                  const TRoundedImage(
-                    imageUrl: TImages.productImage1,
+                  TRoundedImage(
+                    imageUrl: product.thumbnail,
                     applyImageRadius: true,
+                    isNetworkImage: true,
                   ),
 
                   ///Sale Tag
-                  Positioned(
-                    top: 12,
-                    left: 6,
-                    child: TRoundedContainer(
-                      radius: TSizes.sm,
-                      backgroundColor: TColors.secondary.withOpacity(0.8),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: TSizes.sm, vertical: TSizes.xs),
-                      child: Text(
-                        "25%",
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge!
-                            .apply(color: TColors.black),
+                  if (product.salePrice <
+                      product.price) // Check if the product has a sale
+                    Positioned(
+                      top: 12,
+                      left: 6,
+                      child: TRoundedContainer(
+                        radius: TSizes.sm,
+                        backgroundColor: TColors.secondary.withOpacity(0.8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: TSizes.sm, vertical: TSizes.xs),
+                        child: Text(
+                          "${((product.price - product.salePrice) / product.price * 100).toStringAsFixed(0)}%",
+                          // Calculate the discount percentage
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .apply(color: TColors.black),
+                        ),
                       ),
                     ),
-                  ),
 
                   /// Favorite Icons Button
                   const Positioned(
@@ -79,19 +86,22 @@ class TProductCardVertical extends StatelessWidget {
             ),
 
             ///Details
-            const Padding(
-              padding: EdgeInsets.only(left: TSizes.sm),
+            Padding(
+              padding: const EdgeInsets.only(left: TSizes.sm),
               child: Column(
                 children: [
                   TProductTitleText(
-                    title: "Nike Shoes",
+                    title: product.title,
                     smallSize: true,
                     textAlign: TextAlign.left,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwItems / 2,
                   ),
-                  TBrandTitleWithVerifiedIcon(title: "Nike")
+                  TBrandTitleWithVerifiedIcon(
+                    title: product.brand?.name ??
+                        '', // Dynamically set the brand name
+                  )
                 ],
               ),
             ),
@@ -103,7 +113,8 @@ class TProductCardVertical extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: TSizes.sm),
                   child: Text(
-                    "\$35.5",
+                    "\$${product.salePrice}",
+                    // Dynamically set the product sale price
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.headlineMedium,
                     maxLines: 1,

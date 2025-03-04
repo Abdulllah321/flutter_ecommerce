@@ -4,6 +4,7 @@ import 'package:t_store/common/widgets/products/products_cards/product_card_vert
 import 'package:t_store/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:t_store/features/shop/screens/home/widgets/home_carousel.dart';
 import 'package:t_store/features/shop/screens/home/widgets/home_categories.dart';
+import 'package:t_store/utils/constants/dummy_product_data.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../../../common/widgets/custom_shapes/containers/search_container.dart';
@@ -64,8 +65,10 @@ class HomeScreen extends StatelessWidget {
                   ///Popular Products
 
                   TGridView(
-                    itemCount: 10,
-                    itemBuilder: (_, index) => const TProductCardVertical(),
+                    itemCount: dummyProductData.length,
+                    itemBuilder: (_, index) => TProductCardVertical(
+                      product: dummyProductData[index], // Pass the product data to the widget
+                    ),
                   )
                 ],
               ),

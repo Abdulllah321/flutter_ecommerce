@@ -19,42 +19,39 @@ class HomeCarousel extends StatelessWidget {
 
     return Column(
       children: [
-        // Carousel Slider with specified height
-        Container(
-          height: 150, // Set the height of the carousel
-          child: CarouselSlider(
-            options: CarouselOptions(
-              viewportFraction: 1,
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 4),
-              onPageChanged: (index, _) => controller.updatePageIndicator(index),
-            ),
-            items: bannerController.isLoading.value
-                ? [
-              TShimmerEffect(width: double.infinity, height: 200)
-            ] // Wrap it in a list for skeleton loader
-                : List.generate(bannerController.activeBanners.length, (index) {
-              // Extract the imageUrl from the BannerModel
-              final banner = bannerController.activeBanners[index];
-              return TRoundedImage(
-                imageUrl: banner.imageUrl,
-                isNetworkImage: true,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 200, // Set the height for individual items
-              );
-            }),
+        // Carousel Slider
+        CarouselSlider(
+          options: CarouselOptions(
+            viewportFraction: 1,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 4),
+            onPageChanged: (index, _) => controller.updatePageIndicator(index),
           ),
+          items: bannerController.isLoading.value
+              ? [
+                  TShimmerEffect(width: double.infinity, height: 200)
+                ] // Wrap it in a list
+              : List.generate(bannerController.activeBanners.length, (index) {
+                  // Extract the imageUrl from the BannerModel
+                  final banner = bannerController.activeBanners[index];
+                  return TRoundedImage(
+                    imageUrl: banner.imageUrl,
+                    isNetworkImage: true,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 250,
+                  ); // Pass only the imageUrl (String)
+                }),
         ),
         const SizedBox(height: TSizes.spaceBtwItems),
 
         // Carousel Indicators
         Obx(
-              () => Row(
+          () => Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               bannerController.activeBanners.length,
-                  (index) => AnimatedContainer(
+              (index) => AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 margin: const EdgeInsets.symmetric(horizontal: 6),
                 width: controller.carouselCurrentIndex.value == index ? 24 : 8,
@@ -66,12 +63,12 @@ class HomeCarousel extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: controller.carouselCurrentIndex.value == index
                       ? [
-                    BoxShadow(
-                      color: TColors.primary.withOpacity(0.5),
-                      blurRadius: 8,
-                      spreadRadius: 2,
-                    )
-                  ]
+                          BoxShadow(
+                            color: TColors.primary.withOpacity(0.5),
+                            blurRadius: 8,
+                            spreadRadius: 2,
+                          )
+                        ]
                       : [],
                 ),
               ),

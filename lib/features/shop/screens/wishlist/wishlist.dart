@@ -8,6 +8,8 @@ import 'package:t_store/features/shop/screens/home/home.dart';
 import 'package:get/get.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
+import '../../../../utils/constants/dummy_product_data.dart';
+
 class WishlistScreen extends StatelessWidget {
   const WishlistScreen({super.key});
 
@@ -26,9 +28,13 @@ class WishlistScreen extends StatelessWidget {
         child: Padding(padding: const EdgeInsets.all(TSizes.defaultSpace),
         child: Column(
           children: [
-            TGridView(itemCount: 10, itemBuilder: (_,index){
-              return const TProductCardVertical();
-            })
+            TGridView(
+              itemCount: dummyProductData.length,
+              itemBuilder: (_, index) => TProductCardVertical(
+                product: dummyProductData[index], // Pass the product data to the widget
+              ),
+            )
+
           ],
         ),),
       ),
