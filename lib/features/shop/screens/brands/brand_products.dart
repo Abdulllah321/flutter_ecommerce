@@ -11,7 +11,7 @@ class BrandProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: TAppBar(title: Text("Nike")),
+      appBar: TAppBar(title: Text("Hp")),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(TSizes.defaultSpace),

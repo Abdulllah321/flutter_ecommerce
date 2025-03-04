@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "package:get/get.dart";
+import 'package:t_store/features/shop/screens/cart/cart.dart';
 
 import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../common/widgets/custom_shapes/containers/shimmmer_effect.dart';
@@ -45,7 +46,7 @@ class THomeAppBar extends StatelessWidget {
       actions: [
         TCartCounterIcon(
           iconColor: TColors.white,
-          onPressed: () {},
+          onPressed: () => Get.to(() => const CartScreen()),
         )
       ],
     );

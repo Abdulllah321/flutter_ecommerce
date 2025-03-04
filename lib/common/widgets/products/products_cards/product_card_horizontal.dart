@@ -87,11 +87,11 @@ class TProductCardHorizontal extends StatelessWidget {
               children: [
                 /// Product Title and Brand Section
                 const TProductTitleText(
-                  title: "Green Nike Half Sleeves Shirt",
+                  title: "MacBook Pro 16",
                   smallSize: true,
                 ),
                 const SizedBox(height: TSizes.spaceBtwItems / 2),
-                const TBrandTitleWithVerifiedIcon(title: "Nike"),
+                const TBrandTitleWithVerifiedIcon(title: "HP"),
                 const SizedBox(height: TSizes.spaceBtwItems),
                 /// Pricing and Add-to-Cart Row
                 Row(

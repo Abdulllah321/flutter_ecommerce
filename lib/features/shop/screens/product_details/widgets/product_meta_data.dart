@@ -4,7 +4,6 @@ import 'package:t_store/common/widgets/icons/brand_title_with_verified_icons.dar
 import 'package:t_store/common/widgets/images/t_circular_image.dart';
 import 'package:t_store/common/widgets/texts/product_title.dart';
 import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
@@ -98,6 +97,7 @@ class TProductMetaData extends StatelessWidget {
               width: 32,
               height: 32,
               overlayColor: dark ? TColors.white : TColors.black,
+              isNetworkImage: true,
             ),
             TBrandTitleWithVerifiedIcon(
               title: brand,

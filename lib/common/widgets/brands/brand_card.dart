@@ -50,7 +50,7 @@ class TBrandCard extends StatelessWidget {
                 // Prevents extra vertical space
                 children: [
                   const TBrandTitleWithVerifiedIcon(
-                    title: "Nike",
+                    title: "Hp",
                     brandTextSize: TSizes.lg,
                   ),
                   Text(

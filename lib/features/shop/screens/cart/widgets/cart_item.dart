@@ -36,12 +36,12 @@ class ProductCartItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// Brand Title
-              const TBrandTitleWithVerifiedIcon(title: "Nike"),
+              const TBrandTitleWithVerifiedIcon(title: "Hp"),
               const SizedBox(height: TSizes.spaceBtwItems / 2),
 
               /// Product Title
               const TProductTitleText(
-                title: "Black Sports Shoes Sablich",
+                title: "Black Gaming Laptop",
                 maxLines: 1,
               ),
 

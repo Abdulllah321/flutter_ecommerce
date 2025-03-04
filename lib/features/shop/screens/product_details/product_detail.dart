@@ -8,7 +8,9 @@ import 'package:t_store/features/shop/screens/product_details/widgets/product_at
 import 'package:t_store/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
 import 'package:t_store/features/shop/screens/product_details/widgets/product_meta_data.dart';
 import 'package:t_store/features/shop/screens/product_details/widgets/rating_share_widget.dart';
+import 'package:t_store/features/shop/screens/product_reviews/product_reviews.dart';
 import 'package:t_store/utils/constants/sizes.dart';
+import 'package:get/get.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key, required this.product});
@@ -50,7 +52,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
 
                   /// Attributes
-                  const TProductAttributes(),
+                   TProductAttributes(attributes: product.productAttributes ?? [],),
                   const SizedBox(height: TSizes.spaceBtwSections),
 
                   /// Checkout
@@ -93,7 +95,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () => Get.to(() => const ProductReviewsScreen()),
                           icon: const Icon(Iconsax.arrow_right_3),
                         ),
                       ],

@@ -4,6 +4,8 @@ import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:t_store/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
+import 'package:t_store/features/shop/screens/cart/cart.dart';
+import 'package:t_store/features/shop/screens/orders/order.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:get/get.dart';
@@ -54,19 +56,21 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () => Get.to(() => const UserAddressScreen()),
                   ),
 
-                  const TSettingsMenuTile(
+                   TSettingsMenuTile(
                     icon: Iconsax.shopping_cart,
                     title: "My Cart",
                     subtitle: "Add, remove products, and move to checkout",
+                    onTap: () => Get.to(() => const CartScreen()),
                   ),
 
-                  const TSettingsMenuTile(
+                   TSettingsMenuTile(
                     icon: Iconsax.box_tick,
                     title: "My Orders",
                     subtitle: "In-progress and completed orders",
-                  ),
+                     onTap: () => Get.to(() => const MyOrdersScreen()),
+                   ),
 
-                  const TSettingsMenuTile(
+                   const TSettingsMenuTile(
                     icon: Iconsax.bank,
                     title: "Bank Account",
                     subtitle: "Withdraw balance to registered bank account",
