@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:t_store/features/authentication/models/user_modal.dart';
 import 'package:t_store/utils/constants/image_strings.dart';

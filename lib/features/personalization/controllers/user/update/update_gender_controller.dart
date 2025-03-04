@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_store/data/repositories/user/user_repository.dart';
 import 'package:t_store/features/personalization/controllers/user/user_controller.dart';

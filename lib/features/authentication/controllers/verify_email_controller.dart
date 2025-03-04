@@ -8,7 +8,6 @@ import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/popups/loaders.dart';
 
 import '../../../utils/constants/text_strings.dart';
-import '../screens/login/login.dart';
 
 class VerifyEmailController extends GetxController {
   static VerifyEmailController get instance => Get.find();
@@ -32,7 +31,7 @@ class VerifyEmailController extends GetxController {
   }
 
   setTimerForAutoRedirect() {
-    Timer.periodic(Duration(seconds: 1), (timer) async {
+    Timer.periodic(const Duration(seconds: 1), (timer) async {
       await FirebaseAuth.instance.currentUser?.reload();
       final user = FirebaseAuth.instance.currentUser;
 

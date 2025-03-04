@@ -4,7 +4,6 @@ import 'package:t_store/common/widgets/custom_shapes/containers/rounded_containe
 import 'package:t_store/common/widgets/icons/brand_title_with_verified_icons.dart';
 import 'package:t_store/common/widgets/images/t_rouded_images.dart';
 import 'package:t_store/features/shop/screens/product_details/product_detail.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 

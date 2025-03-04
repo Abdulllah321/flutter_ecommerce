@@ -5,7 +5,6 @@ import 'package:t_store/features/shop/screens/sub_categories/sub_categories.dart
 
 import '../../../../../common/widgets/image_text_widgets/vertical_image_text.dart';
 import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../controllers/categories_controller.dart';
 
 class HomeCategories extends StatelessWidget {

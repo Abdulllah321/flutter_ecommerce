@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/data/repositories/authenticatoin/authentication_repository.dart';
 import 'package:t_store/features/authentication/controllers/verify_email_controller.dart';
-import 'package:t_store/features/authentication/screens/login/login.dart';
 import 'package:get/get.dart';
-import 'package:t_store/features/authentication/screens/signup/success_screen.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 

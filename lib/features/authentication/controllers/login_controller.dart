@@ -64,7 +64,7 @@ class LoginController extends GetxController {
 
       // **Stop Loading & Redirect to Home**
       TFullScreenLoader.stopLoading();
-      Get.offAll(() => NavigationMenu());
+      Get.offAll(() => const NavigationMenu());
     } catch (e) {
       TFullScreenLoader.stopLoading();
       Get.snackbar("Login Failed", e.toString());

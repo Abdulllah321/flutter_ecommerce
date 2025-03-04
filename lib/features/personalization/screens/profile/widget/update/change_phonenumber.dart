@@ -4,7 +4,6 @@ import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../utils/constants/text_strings.dart';
 import '../../../../../../utils/validators/validation.dart';
 import '../../../../controllers/user/update/update_phone_controller.dart';
 

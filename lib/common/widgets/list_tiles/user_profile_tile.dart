@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/features/personalization/controllers/user/user_controller.dart';
-import 'package:get/get.dart';
 import 'package:t_store/features/personalization/screens/profile/profile.dart';
 
 import '../../../utils/constants/colors.dart';

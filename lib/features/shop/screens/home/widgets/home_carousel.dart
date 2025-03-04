@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:t_store/features/shop/controllers/home_controller.dart';
 import '../../../../../common/widgets/custom_shapes/containers/shimmmer_effect.dart';
 import '../../../../../common/widgets/images/t_rouded_images.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../controllers/banner_controller.dart';
@@ -29,7 +28,7 @@ class HomeCarousel extends StatelessWidget {
           ),
           items: bannerController.isLoading.value
               ? [
-                  TShimmerEffect(width: double.infinity, height: 200)
+                  const TShimmerEffect(width: double.infinity, height: 200)
                 ] // Wrap it in a list
               : List.generate(bannerController.activeBanners.length, (index) {
                   // Extract the imageUrl from the BannerModel

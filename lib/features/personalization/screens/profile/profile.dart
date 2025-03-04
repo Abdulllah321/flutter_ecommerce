@@ -47,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                                 ? networkImage
                                 : TImages.user;
                             return controller.imageUploading.value ?
-                            TShimmerEffect(width: 80, height: 80, radius: 80,)
+                            const TShimmerEffect(width: 80, height: 80, radius: 80,)
                                 :TCircularImage(
                               image: image,
                               width: 80,

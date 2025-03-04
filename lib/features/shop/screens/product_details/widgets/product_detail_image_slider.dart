@@ -5,7 +5,6 @@ import '../../../../../common/widgets/custom_shapes/curved_edges/curved_edges_wi
 import '../../../../../common/widgets/icons/circular_icons.dart';
 import '../../../../../common/widgets/images/t_rouded_images.dart';
 import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 
