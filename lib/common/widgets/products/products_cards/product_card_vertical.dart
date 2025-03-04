@@ -24,7 +24,7 @@ class TProductCardVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () => Get.to(() => const ProductDetailsScreen()),
+      onTap: () => Get.to(() => ProductDetailsScreen(product:product)),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),

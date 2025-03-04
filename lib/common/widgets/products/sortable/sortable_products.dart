@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../utils/constants/dummy_product_data.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../layouts/grid_layout.dart';
 import '../products_cards/product_card_vertical.dart';
@@ -44,9 +45,11 @@ class TSortableProducts extends StatelessWidget {
 
         /// Grid Layout for Products
         TGridView(
-          itemCount: 8,
-          itemBuilder: (context, index) => const TProductCardVertical(),
-        ),
+          itemCount: dummyProductData.length,
+          itemBuilder: (_, index) => TProductCardVertical(
+            product: dummyProductData[index], // Pass the product data to the widget
+          ),
+        )
       ],
     );
   }

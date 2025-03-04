@@ -12,7 +12,7 @@ final List<ProductModel> dummyProductData = [
     title: 'Dell XPS 13',
     date: DateTime.parse('2023-03-15'),
     salePrice: 799.99,
-    thumbnail: 'https://www.kharido.com.pk/wp-content/uploads/2024/11/Dell-XPS-13-9370-i5-8th-Gen-8GB-256GB-SSD-13.3-HD-Touch-Screen-Display.webp',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnuGYHyCZJySxOnmsNE8cHJOsoAt57hrmYwxx0UpEeXf2cqyJXEHyDHKnkehxIYKZLdNc&usqp=CAU',
     jsFeatured: true,
     brand: BrandModel(id: '1', name: 'Dell', image: 'https://icon2.cleanpng.com/20181209/if/kisspng-logo-dell-laptop-font-computer-1713911699182.webp'),
     description: 'A powerful and portable 13-inch laptop with Intel i7 processor and high-resolution display.',

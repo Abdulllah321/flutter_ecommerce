@@ -11,7 +11,22 @@ import 'package:t_store/utils/helpers/helper_functions.dart';
 import '../../../../../common/widgets/texts/product_price_text.dart';
 
 class TProductMetaData extends StatelessWidget {
-  const TProductMetaData({super.key});
+  final String discount;
+  final String originalPrice;
+  final String productTitle;
+  final String status;
+  final String brand;
+  final String brandLogoUrl;
+
+  const TProductMetaData({
+    super.key,
+    required this.discount,
+    required this.originalPrice,
+    required this.productTitle,
+    required this.status,
+    required this.brand,
+    required this.brandLogoUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +47,7 @@ class TProductMetaData extends StatelessWidget {
                 vertical: TSizes.xs,
               ),
               child: Text(
-                "25%",
+                discount,
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
@@ -43,7 +58,7 @@ class TProductMetaData extends StatelessWidget {
             const SizedBox(width: TSizes.spaceBtwItems),
 
             /// Original Price (Strikethrough)
-            const TProductPriceText(price: "175"),
+            TProductPriceText(price: originalPrice),
           ],
         ),
 
@@ -51,13 +66,14 @@ class TProductMetaData extends StatelessWidget {
           height: TSizes.spaceBtwItems,
         ),
 
-        ///title
-        const TProductTitleText(title: "Green Nike Sport Shoes"),
+        /// Title
+        TProductTitleText(title: productTitle),
+
         const SizedBox(
           height: TSizes.spaceBtwItems / 1.5,
         ),
 
-        ///Stack Status
+        /// Stack Status
         Row(
           children: [
             const TProductTitleText(title: "Status"),
@@ -65,7 +81,7 @@ class TProductMetaData extends StatelessWidget {
               width: TSizes.spaceBtwItems,
             ),
             Text(
-              "In Stock",
+              status,
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
@@ -74,21 +90,21 @@ class TProductMetaData extends StatelessWidget {
           height: TSizes.spaceBtwItems / 1.5,
         ),
 
-        ///Brand
+        /// Brand
         Row(
           children: [
             TCircularImage(
-              image: TImages.shoeIcon,
+              image: brandLogoUrl,
               width: 32,
               height: 32,
               overlayColor: dark ? TColors.white : TColors.black,
             ),
-            const TBrandTitleWithVerifiedIcon(
-              title: "Nike",
+            TBrandTitleWithVerifiedIcon(
+              title: brand,
               brandTextSize: TSizes.md,
             ),
           ],
-        )
+        ),
       ],
     );
   }

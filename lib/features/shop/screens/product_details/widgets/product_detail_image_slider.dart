@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../common/widgets/custom_shapes/curved_edges/curved_edges_widget.dart';
 import '../../../../../common/widgets/icons/circular_icons.dart';
@@ -11,8 +10,13 @@ import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 
 class TProductDetailImageSlider extends StatelessWidget {
+  final String mainImageUrl;
+  final List<String> imageUrls;
+
   const TProductDetailImageSlider({
     super.key,
+    required this.mainImageUrl,
+    required this.imageUrls,
   });
 
   @override
@@ -24,13 +28,14 @@ class TProductDetailImageSlider extends StatelessWidget {
         child: Stack(
           children: [
             /// Main Product Image
-            const SizedBox(
+            SizedBox(
               height: 400,
               child: Padding(
-                padding: EdgeInsets.all(TSizes.productImageRadius * 2),
+                padding: const EdgeInsets.all(TSizes.productImageRadius * 2),
                 child: Center(
-                  child: Image(
-                    image: AssetImage(TImages.productImage1),
+                  child: Image.network(
+                    mainImageUrl, // Dynamic main product image
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -45,18 +50,18 @@ class TProductDetailImageSlider extends StatelessWidget {
                 height: 100,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 6,
+                  itemCount: imageUrls.length, // Dynamically set number of images
                   shrinkWrap: true,
                   physics: const AlwaysScrollableScrollPhysics(),
                   separatorBuilder: (_, __) =>
-                      const SizedBox(width: TSizes.spaceBtwItems),
+                  const SizedBox(width: TSizes.spaceBtwItems),
                   itemBuilder: (_, index) {
                     return TRoundedImage(
                       width: 80,
                       backgroundColor: dark ? TColors.dark : TColors.white,
                       border: Border.all(color: TColors.primary),
                       padding: const EdgeInsets.all(TSizes.sm),
-                      imageUrl: TImages.productImage3,
+                      imageUrl: imageUrls[index], // Dynamically set each image
                     );
                   },
                 ),

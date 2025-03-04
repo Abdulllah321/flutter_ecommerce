@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
+import 'package:t_store/features/shop/models/product_model.dart';
 import 'package:t_store/features/shop/screens/product_details/widgets/bottom_add_to_cart_widget.dart';
 import 'package:t_store/features/shop/screens/product_details/widgets/product_attribute.dart';
 import 'package:t_store/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
@@ -10,7 +11,9 @@ import 'package:t_store/features/shop/screens/product_details/widgets/rating_sha
 import 'package:t_store/utils/constants/sizes.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +22,14 @@ class ProductDetailsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            /// Slider Section
-            const TProductDetailImageSlider(),
+            /// Slider Section with dynamic data
+            TProductDetailImageSlider(
+              mainImageUrl: product.thumbnail,
+              imageUrls: product.images ?? [], // Provide an empty list if `product.images` is null
+            ),
 
-            ///Product Detail
+
+            /// Product Detail
             Padding(
               padding: const EdgeInsets.only(
                   right: TSizes.defaultSpace,
@@ -30,16 +37,23 @@ class ProductDetailsScreen extends StatelessWidget {
                   bottom: TSizes.defaultSpace),
               child: Column(
                 children: [
-                  ///Rating & Share Button
+                  /// Rating & Share Button
                   const TRatingAndShare(),
 
-                  const TProductMetaData(),
+                  TProductMetaData(
+                    discount: "${((product.price - product.salePrice) / product.price * 100).toStringAsFixed(0)}%",  // Calculate discount
+                    originalPrice: product.price.toString(),
+                    productTitle: product.title,
+                    status: product.stacky > 0 ? "In Stock" : "Out of Stock",  // Assuming stacky indicates stock
+                    brand: product.brand?.name ?? "Unknown Brand",  // Assuming `brand` is a `BrandModel`
+                    brandLogoUrl: product.brand?.image ?? "default_logo_url",  // Assuming `logoUrl` exists in `BrandModel`
+                  ),
 
-                  ///Attributes
+                  /// Attributes
                   const TProductAttributes(),
                   const SizedBox(height: TSizes.spaceBtwSections),
 
-                  ///Checkout
+                  /// Checkout
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -47,22 +61,22 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: TSizes.spaceBtwSections),
 
-                  ///Description
+                  /// Description Section with dynamic content
                   const TSectionHeading(title: "Description"),
                   const SizedBox(height: TSizes.spaceBtwSections),
-                  const ReadMoreText(
-                    "Your TProductAttributes widget contains multiple Column widgets. Ensure that each section (like Variation, Colors, Sizes) is aligned properly. Try setting crossAxisAlignment: CrossAxisAlignment.start inside Column.",
+                  ReadMoreText(
+                    product.description ?? "",
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: "Show More",
                     trimExpandedText: "Less",
                     moreStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                     lessStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                   ),
 
-                  ///Reviews
+                  /// Reviews
                   const Divider(),
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
@@ -73,11 +87,12 @@ class ProductDetailsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Reviews (199)",
+                          "Reviews (199)", // Dynamic reviews count
                           style: Theme.of(context).textTheme.headlineSmall,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                        ),                        IconButton(
+                        ),
+                        IconButton(
                           onPressed: () {},
                           icon: const Icon(Iconsax.arrow_right_3),
                         ),
