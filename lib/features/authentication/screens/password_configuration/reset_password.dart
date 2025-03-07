@@ -5,12 +5,16 @@ import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
 
 import '../../../../utils/helpers/helper_functions.dart';
+import '../../controllers/forget_password_controller.dart';
+import '../login/login.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({super.key});
+  const ResetPasswordScreen({super.key, required String email});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ForgetPasswordController());
+
     return Scaffold(
       appBar: AppBar(automaticallyImplyLeading: false, actions: [
         IconButton(onPressed: () => Get.back(), icon: const Icon(Icons.clear)),
@@ -47,7 +51,7 @@ class ResetPasswordScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => Get.to(() => const LoginScreen()),
                   child: const Text(TTexts.done),
                 ),
               ),
@@ -55,7 +59,7 @@ class ResetPasswordScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => controller.sendPasswordResetEmail(),
                   child: const Text(TTexts.resendEmail),
                 ),
               ),

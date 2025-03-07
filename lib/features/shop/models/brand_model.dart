@@ -4,6 +4,7 @@ class BrandModel {
   final String image;
   final bool? isFeatured;
   final int? productsCount;
+  final List<dynamic> variants;
 
   BrandModel({
     required this.id,
@@ -11,16 +12,30 @@ class BrandModel {
     required this.image,
     this.isFeatured,
     this.productsCount,
+    this.variants = const [],
   });
+
+  /// Static empty instance
+  static final empty = BrandModel(
+    id: '',
+    name: '',
+    image: '',
+    isFeatured: false,
+    productsCount: 0,
+    variants: [],
+  );
 
   /// Convert Firestore snapshot to `BrandModel`
   factory BrandModel.fromSnapshot(Map<String, dynamic> data) {
     return BrandModel(
-      id: data['id'] ?? '',
+      id: data['id'].toString(), // Ensure ID is always a string
       name: data['name'] ?? '',
       image: data['image'] ?? '',
-      isFeatured: data['isFeatured'],
-      productsCount: data['productsCount'],
+      isFeatured: data['isFeatured'] ?? false,
+      productsCount: (data['productsCount'] is int)
+          ? data['productsCount']
+          : int.tryParse(data['productsCount'].toString()) ?? 0, // Convert to int
+      variants: data['variants'] ?? [],
     );
   }
 
@@ -32,6 +47,7 @@ class BrandModel {
       'image': image,
       'isFeatured': isFeatured,
       'productsCount': productsCount,
+      'variants': variants,
     };
   }
 }

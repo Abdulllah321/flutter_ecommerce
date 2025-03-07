@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/appbar/tabbar.dart';
+import 'package:t_store/common/widgets/brands/brand_card_shimmer.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:t_store/common/widgets/layouts/grid_layout.dart';
 import 'package:t_store/common/widgets/products/cart/cart_menu_icon.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
+import 'package:t_store/features/shop/screens/brands/all_brands.dart';
 import 'package:t_store/features/shop/screens/store/widget/category_tabs.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 import '../../../../common/widgets/brands/brand_card.dart';
+import '../../controllers/brand_controller.dart';
+import 'package:get/get.dart';
+
+import '../brands/brand_products.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = THelperFunctions.isDarkMode(context);
+    final brandController = Get.put(BrandController());
 
     return DefaultTabController(
       length: 5,
@@ -59,18 +65,43 @@ class StoreScreen extends StatelessWidget {
                         /// -- Featured Brands
                         TSectionHeading(
                           title: "Featured Brands",
-                          onButtonPressed: () {},
+                          onButtonPressed: () => Get.to(() => AllBrandsScreen()),
                         ),
                         const SizedBox(
                           height: TSizes.spaceBtwItems / 1.5,
                         ),
 
-                        TGridView(
-                            itemCount: 4,
-                            mainAxisExtent: 80,
-                            itemBuilder: (_, index) {
-                              return const TBrandCard();
-                            })
+                        ///Brands Grid
+                        Obx(() {
+                          if (brandController.isLoading.value) {
+                            return const TBrandsShimmer();
+                          }
+
+                          if (brandController.featuredBrands.isEmpty) {
+                            return Center(
+                              child: Text(
+                                "No Data Found!",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .apply(color: TColors.white),
+                              ),
+                            );
+                          }
+
+                          return TGridView(
+                              itemCount: brandController.featuredBrands.length,
+                              mainAxisExtent: 80,
+                              itemBuilder: (_, index) {
+                                final brand =
+                                    brandController.featuredBrands[index];
+                                return TBrandCard(
+                                  showBorder: true,
+                                  onPressed: () => Get.to(() => BrandProducts(brand: brand,)),
+                                  brand: brand,
+                                );
+                              });
+                        })
                       ],
                     ),
                   ),
@@ -94,7 +125,12 @@ class StoreScreen extends StatelessWidget {
                 )
               ];
             },
-            body: const TabBarView(children: [TCategoryTabs(),TCategoryTabs(),TCategoryTabs(),TCategoryTabs()])),
+            body: const TabBarView(children: [
+              TCategoryTabs(),
+              TCategoryTabs(),
+              TCategoryTabs(),
+              TCategoryTabs()
+            ])),
       ),
     );
   }

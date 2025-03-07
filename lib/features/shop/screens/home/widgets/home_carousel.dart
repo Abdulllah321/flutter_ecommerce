@@ -19,28 +19,30 @@ class HomeCarousel extends StatelessWidget {
     return Column(
       children: [
         // Carousel Slider
-        CarouselSlider(
-          options: CarouselOptions(
-            viewportFraction: 1,
-            autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 4),
-            onPageChanged: (index, _) => controller.updatePageIndicator(index),
+        Obx(() =>
+           CarouselSlider(
+            options: CarouselOptions(
+              viewportFraction: 1,
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 4),
+              onPageChanged: (index, _) => controller.updatePageIndicator(index),
+            ),
+            items: bannerController.isLoading.value
+                ? [
+                    const TShimmerEffect(width: double.infinity, height: 200)
+                  ] // Wrap it in a list
+                : List.generate(bannerController.activeBanners.length, (index) {
+                    // Extract the imageUrl from the BannerModel
+                    final banner = bannerController.activeBanners[index];
+                    return TRoundedImage(
+                      imageUrl: banner.imageUrl,
+                      isNetworkImage: true,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 250,
+                    ); // Pass only the imageUrl (String)
+                  }),
           ),
-          items: bannerController.isLoading.value
-              ? [
-                  const TShimmerEffect(width: double.infinity, height: 200)
-                ] // Wrap it in a list
-              : List.generate(bannerController.activeBanners.length, (index) {
-                  // Extract the imageUrl from the BannerModel
-                  final banner = bannerController.activeBanners[index];
-                  return TRoundedImage(
-                    imageUrl: banner.imageUrl,
-                    isNetworkImage: true,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: 250,
-                  ); // Pass only the imageUrl (String)
-                }),
         ),
         const SizedBox(height: TSizes.spaceBtwItems),
 

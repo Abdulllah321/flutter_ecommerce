@@ -3,12 +3,18 @@ import 'package:t_store/features/authentication/screens/password_configuration/r
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
 import 'package:get/get.dart';
+import 'package:t_store/utils/validators/validation.dart';
+
+import '../../controllers/forget_password_controller.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    final controller = Get.put(ForgetPasswordController());
+
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -31,10 +37,15 @@ class ForgotPassword extends StatelessWidget {
           ),
 
           ///Text Fields
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: TTexts.email,
-              prefixIcon: Icon(Icons.email),
+          Form(
+            key: controller.formKey,
+            child: TextFormField(
+              controller: controller.email,
+              validator: TValidator.validateEmail,
+              decoration: const InputDecoration(
+                labelText: TTexts.email,
+                prefixIcon: Icon(Icons.email),
+              ),
             ),
           ),
 
@@ -46,7 +57,7 @@ class ForgotPassword extends StatelessWidget {
           SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () => Get.to(() => const ResetPasswordScreen()),
+                  onPressed: () => controller.sendPasswordResetEmail(),
                   child: const Text(TTexts.submit)))
         ]),
       ),

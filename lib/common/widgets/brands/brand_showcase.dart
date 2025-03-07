@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:t_store/features/shop/models/brand_model.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
@@ -25,7 +26,7 @@ class TBrandShowcase extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start, // Ensures left alignment
         children: [
-          const TBrandCard(),
+           TBrandCard(brand: BrandModel.empty,),
 
           /// Row for brand top product images
           Row(

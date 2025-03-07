@@ -3,33 +3,29 @@ import 'package:t_store/common/widgets/custom_shapes/containers/rounded_containe
 import 'package:t_store/common/widgets/icons/brand_title_with_verified_icons.dart';
 import 'package:t_store/common/widgets/images/t_circular_image.dart';
 import 'package:t_store/common/widgets/texts/product_title.dart';
+import 'package:t_store/features/shop/controllers/product/product_controller.dart';
+import 'package:t_store/features/shop/models/product_model.dart';
 import 'package:t_store/utils/constants/colors.dart';
+import 'package:t_store/utils/constants/enums.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 import '../../../../../common/widgets/texts/product_price_text.dart';
 
 class TProductMetaData extends StatelessWidget {
-  final String discount;
-  final String originalPrice;
-  final String productTitle;
-  final String status;
-  final String brand;
-  final String brandLogoUrl;
+  final ProductModel product;
 
   const TProductMetaData({
     super.key,
-    required this.discount,
-    required this.originalPrice,
-    required this.productTitle,
-    required this.status,
-    required this.brand,
-    required this.brandLogoUrl,
+    required this.product,
   });
 
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
+    final controller = ProductController.instance;
+    final salePercentage =
+        controller.calculateSalePercentage(product.price, product.salePrice);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +42,7 @@ class TProductMetaData extends StatelessWidget {
                 vertical: TSizes.xs,
               ),
               child: Text(
-                discount,
+                salePercentage!,
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
@@ -57,7 +53,16 @@ class TProductMetaData extends StatelessWidget {
             const SizedBox(width: TSizes.spaceBtwItems),
 
             /// Original Price (Strikethrough)
-            TProductPriceText(price: originalPrice),
+            if (product.productType == ProductType.single.toString() &&
+                product.salePrice > 0)
+              Text("\$${product.price}",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall!
+                      .apply(decoration: TextDecoration.lineThrough)),
+            if (product.productType == ProductType.single.toString() &&
+                product.salePrice > 0) SizedBox(width: TSizes.spaceBtwItems,),
+            TProductPriceText(price: controller.getProductPrice(product)),
           ],
         ),
 
@@ -66,7 +71,7 @@ class TProductMetaData extends StatelessWidget {
         ),
 
         /// Title
-        TProductTitleText(title: productTitle),
+        TProductTitleText(title: product.title),
 
         const SizedBox(
           height: TSizes.spaceBtwItems / 1.5,
@@ -80,7 +85,7 @@ class TProductMetaData extends StatelessWidget {
               width: TSizes.spaceBtwItems,
             ),
             Text(
-              status,
+              controller.geProductStockStatus(product.stock),
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
@@ -93,14 +98,14 @@ class TProductMetaData extends StatelessWidget {
         Row(
           children: [
             TCircularImage(
-              image: brandLogoUrl,
+              image: product.brand!.image,
               width: 32,
               height: 32,
               overlayColor: dark ? TColors.white : TColors.black,
               isNetworkImage: true,
             ),
             TBrandTitleWithVerifiedIcon(
-              title: brand,
+              title: product.brand!.name,
               brandTextSize: TSizes.md,
             ),
           ],

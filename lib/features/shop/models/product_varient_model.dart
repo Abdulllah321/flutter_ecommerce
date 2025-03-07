@@ -19,6 +19,20 @@ class ProductVariationModel {
     required this.attributes,
   });
 
+  /// 🔹 Factory Constructor for Empty Model
+  factory ProductVariationModel.empty() {
+    return ProductVariationModel(
+      id: '',
+      sku: '',
+      image: '',
+      description: null,
+      price: 0.0,
+      salePrice: 0.0,
+      stock: 0,
+      attributes: {},
+    );
+  }
+
   /// Convert Firestore snapshot to `ProductVariationModel`
   factory ProductVariationModel.fromSnapshot(Map<String, dynamic> data) {
     return ProductVariationModel(

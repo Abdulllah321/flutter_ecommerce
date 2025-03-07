@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:t_store/features/shop/models/brand_model.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/image_strings.dart';
@@ -13,10 +14,13 @@ class TBrandCard extends StatelessWidget {
     super.key,
     this.showBorder = false,
     this.onPressed,
+    required this.brand,
   });
 
   final bool showBorder;
   final void Function()? onPressed;
+
+  final BrandModel brand;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,9 @@ class TBrandCard extends StatelessWidget {
             ///Icon
             Flexible(
               child: TCircularImage(
-                image: TImages.clothIcon,
+                image: brand.image,
+                isNetworkImage: true,
+                fit: BoxFit.contain,
                 overlayColor: isDarkMode ? TColors.white : TColors.dark,
               ),
             ),
@@ -49,12 +55,12 @@ class TBrandCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 // Prevents extra vertical space
                 children: [
-                  const TBrandTitleWithVerifiedIcon(
-                    title: "Hp",
+                  TBrandTitleWithVerifiedIcon(
+                    title: brand.name,
                     brandTextSize: TSizes.lg,
                   ),
                   Text(
-                    "256 Products",
+                    "${brand.productsCount ?? 0} Products",
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),

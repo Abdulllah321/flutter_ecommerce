@@ -12,10 +12,13 @@ import 'package:t_store/features/shop/screens/product_reviews/product_reviews.da
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/constants/enums.dart';
+
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key, required this.product});
 
   final ProductModel product;
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +29,8 @@ class ProductDetailsScreen extends StatelessWidget {
           children: [
             /// Slider Section with dynamic data
             TProductDetailImageSlider(
-              mainImageUrl: product.thumbnail,
-              imageUrls: product.images ?? [], // Provide an empty list if `product.images` is null
+              product: product,
             ),
-
 
             /// Product Detail
             Padding(
@@ -43,16 +44,14 @@ class ProductDetailsScreen extends StatelessWidget {
                   const TRatingAndShare(),
 
                   TProductMetaData(
-                    discount: "${((product.price - product.salePrice) / product.price * 100).toStringAsFixed(0)}%",  // Calculate discount
-                    originalPrice: product.price.toString(),
-                    productTitle: product.title,
-                    status: product.stacky > 0 ? "In Stock" : "Out of Stock",  // Assuming stacky indicates stock
-                    brand: product.brand?.name ?? "Unknown Brand",  // Assuming `brand` is a `BrandModel`
-                    brandLogoUrl: product.brand?.image ?? "default_logo_url",  // Assuming `logoUrl` exists in `BrandModel`
+                    product: product,
                   ),
 
                   /// Attributes
-                   TProductAttributes(attributes: product.productAttributes ?? [],),
+                  // if (product.productType == ProductType.variable.toString())
+                    TProductAttributes(
+                      product: product,
+                    ),
                   const SizedBox(height: TSizes.spaceBtwSections),
 
                   /// Checkout
@@ -72,10 +71,10 @@ class ProductDetailsScreen extends StatelessWidget {
                     trimMode: TrimMode.Line,
                     trimCollapsedText: "Show More",
                     trimExpandedText: "Less",
-                    moreStyle:
-                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                    lessStyle:
-                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    moreStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w800),
+                    lessStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w800),
                   ),
 
                   /// Reviews
@@ -95,7 +94,8 @@ class ProductDetailsScreen extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         IconButton(
-                          onPressed: () => Get.to(() => const ProductReviewsScreen()),
+                          onPressed: () =>
+                              Get.to(() => const ProductReviewsScreen()),
                           icon: const Icon(Iconsax.arrow_right_3),
                         ),
                       ],

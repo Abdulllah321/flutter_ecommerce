@@ -16,6 +16,7 @@ class TRoundedImage extends StatelessWidget {
     this.isNetworkImage = true,
     this.onPressed,
     this.borderRadius = 8.0,
+    this.boxShadow,
   });
 
   final double? width, height;
@@ -28,6 +29,7 @@ class TRoundedImage extends StatelessWidget {
   final bool isNetworkImage;
   final VoidCallback? onPressed;
   final double borderRadius;
+  final List<BoxShadow>? boxShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class TRoundedImage extends StatelessWidget {
           decoration: BoxDecoration(
             color: backgroundColor,
             border: border,
+            boxShadow: boxShadow,
             borderRadius:
                 applyImageRadius ? BorderRadius.circular(borderRadius) : null,
           ),
